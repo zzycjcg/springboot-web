@@ -1,0 +1,57 @@
+group 'com.github.zzycjcg'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'maven'
+apply plugin: "org.springframework.boot"
+
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:1.4.3.RELEASE"
+    }
+}
+
+test {
+    ignoreFailures = true
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+jar {
+    baseName = 'springboot-web'
+    version = '1.0'
+    manifest { attributes 'Main-Class': 'com.github.zzycjcg.springboot.web.Application' }
+}
+
+bootRepackage {
+    mainClass = 'com.github.zzycjcg.springboot.web.Application'
+}
+
+repositories {
+    mavenLocal()
+    maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+    mavenCentral()
+}
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web:1.4.3.RELEASE")
+    compile("org.springframework.boot:spring-boot-starter-velocity:1.4.3.RELEASE")
+    compile('commons-lang:commons-lang:2.6')
+    compile('com.alibaba:fastjson:1.2.23')
+    compile('com.google.guava:guava:20.0')
+    compile("redis.clients:jedis:2.8.2")
+    compile("org.apache.zookeeper:zookeeper:3.4.8") { exclude group: 'org.slf4j' }
+    compile('commons-codec:commons-codec:1.10')
+    compile("com.alibaba:dubbo:2.5.3") { exclude group: 'org.springframework' }
+}
