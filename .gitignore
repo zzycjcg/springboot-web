@@ -19,6 +19,7 @@ target/
 
 # gradle ignore
 .gradle/
+gradle
 
 # temp ignore
 *.log
